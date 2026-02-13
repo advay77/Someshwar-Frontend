@@ -18,6 +18,7 @@ import PoojaAdminPage from "./pages/PoojaAdminPage";
 import CreatePoojaPage from "./pages/CreatePoojaPage";
 import EditPoojaPage from "./pages/EditPoojaPage";
 import { AuthProvider } from "./context/AuthContext"; // Import AuthProvider
+import { LanguageProvider } from "./context/LanguageContext"; // Import LanguageProvider
 
 const queryClient = new QueryClient();
 
@@ -27,32 +28,34 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AuthProvider> {/* Wrap the application with AuthProvider */}
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/poojas" element={<PoojaListingPage />} />
-                <Route path="/booking" element={<BookingFormPage />} />
-                <Route path="/payment/:bookingId" element={<PaymentPage />} />
-                <Route path="/confirmation/:bookingId" element={<ConfirmationPage />} />
+        <LanguageProvider>
+          <AuthProvider> {/* Wrap the application with AuthProvider */}
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/poojas" element={<PoojaListingPage />} />
+                  <Route path="/booking" element={<BookingFormPage />} />
+                  <Route path="/payment/:bookingId" element={<PaymentPage />} />
+                  <Route path="/confirmation/:bookingId" element={<ConfirmationPage />} />
 
-                <Route path="/admin/login" element={<AdminLoginPage />} />
+                  <Route path="/admin/login" element={<AdminLoginPage />} />
 
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/admin" element={<AdminPage />} />
-                  <Route path="/admin/pujas" element={<PoojaAdminPage />} />
-                  <Route path="/admin/pujas/new" element={<CreatePoojaPage />} />
-                  <Route path="/admin/pujas/edit/:id" element={<EditPoojaPage />} />
-                </Route>
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/admin" element={<AdminPage />} />
+                    <Route path="/admin/pujas" element={<PoojaAdminPage />} />
+                    <Route path="/admin/pujas/new" element={<CreatePoojaPage />} />
+                    <Route path="/admin/pujas/edit/:id" element={<EditPoojaPage />} />
+                  </Route>
 
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </AuthProvider>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </AuthProvider>
+        </LanguageProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

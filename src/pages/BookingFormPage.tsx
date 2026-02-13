@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import { createBookingOrder, getAllPujas } from "@/utils/api";
 import OhmImage from "/ohm.png";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useLanguage } from "@/context/LanguageContext";
 
 const initialFormData: BookingFormData = {
   devoteeName: "",
@@ -39,6 +40,7 @@ export default function BookingFormPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const [formData, setFormData] = useState<BookingFormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<BookingFormData>>({});
@@ -92,28 +94,28 @@ export default function BookingFormPage() {
     const newErrors: Partial<BookingFormData> = {};
 
     if (!formData.devoteeName.trim()) {
-      newErrors.devoteeName = "Name is required";
+      newErrors.devoteeName = t('booking.errors.nameRequired');
     }
     if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Valid email is required";
+      newErrors.email = t('booking.errors.emailRequired');
     }
     if (!formData.phone.trim() || !/^[6-9]\d{9}$/.test(formData.phone)) {
-      newErrors.phone = "Valid 10-digit phone number is required";
+      newErrors.phone = t('booking.errors.phoneRequired');
     }
     if (!formData.address.trim()) {
-      newErrors.address = "Address is required";
+      newErrors.address = t('booking.errors.addressRequired');
     }
     if (!formData.city.trim()) {
-      newErrors.city = "City is required";
+      newErrors.city = t('booking.errors.cityRequired');
     }
     if (!formData.pincode.trim() || !/^\d{6}$/.test(formData.pincode)) {
-      newErrors.pincode = "Valid 6-digit pincode is required";
+      newErrors.pincode = t('booking.errors.pincodeRequired');
     }
     if (!formData.poojaId) {
-      newErrors.poojaId = "Please select a pooja";
+      newErrors.poojaId = t('booking.errors.poojaRequired');
     }
     if (!formData.poojaDate) {
-      newErrors.poojaDate = "Please select a date";
+      newErrors.poojaDate = t('booking.errors.dateRequired');
     }
 
     setErrors(newErrors);
@@ -201,10 +203,10 @@ export default function BookingFormPage() {
           {/* Header */}
           <div className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-3">
-              Book Your Pooja
+              {t('booking.title')}
             </h1>
             <p className="text-muted-foreground">
-              Fill in your details to book a sacred ceremony at Someswar Mahadev Temple
+              {t('booking.subtitle')}
             </p>
           </div>
 
@@ -217,16 +219,16 @@ export default function BookingFormPage() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl">
                       <User className="h-5 w-5 text-primary" />
-                      Devotee Details
+                      {t('booking.devoteeDetails')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="devoteeName">Full Name <span className="text-red-500">*</span> </Label>
+                        <Label htmlFor="devoteeName">{t('booking.fullName')} <span className="text-red-500">*</span> </Label>
                         <Input
                           id="devoteeName"
-                          placeholder="Enter your full name"
+                          placeholder={t('booking.placeholders.fullName')}
                           value={formData.devoteeName}
                           onChange={(e) => handleChange("devoteeName", e.target.value)}
                           className={errors.devoteeName ? "border-destructive" : ""}
@@ -236,10 +238,10 @@ export default function BookingFormPage() {
                         )}
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="gotra">Gotra</Label>
+                        <Label htmlFor="gotra">{t('booking.gotra')}</Label>
                         <Input
                           id="gotra"
-                          placeholder="Enter your gotra (optional)"
+                          placeholder={t('booking.placeholders.gotra')}
                           value={formData.gotra}
                           onChange={(e) => handleChange("gotra", e.target.value)}
                         />
@@ -248,13 +250,13 @@ export default function BookingFormPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address <span className="text-red-500">*</span> </Label>
+                        <Label htmlFor="email">{t('booking.emailAddress')} <span className="text-red-500">*</span> </Label>
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="email"
                             type="email"
-                            placeholder="your@email.com"
+                            placeholder={t('booking.placeholders.email')}
                             className={`pl-10 ${errors.email ? "border-destructive" : ""}`}
                             value={formData.email}
                             onChange={(e) => handleChange("email", e.target.value)}
@@ -265,13 +267,13 @@ export default function BookingFormPage() {
                         )}
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="phone">WhatsApp Number <span className="text-red-500">*</span> </Label>
+                        <Label htmlFor="phone">{t('booking.whatsappNumber')} <span className="text-red-500">*</span> </Label>
                         <div className="relative">
                           <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="phone"
                             type="tel"
-                            placeholder="10-digit mobile number"
+                            placeholder={t('booking.placeholders.phone')}
                             className={`pl-10 ${errors.phone ? "border-destructive" : ""}`}
                             value={formData.phone}
                             onChange={(e) => handleChange("phone", e.target.value)}
@@ -285,12 +287,12 @@ export default function BookingFormPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="address">Address <span className="text-red-500">*</span> </Label>
+                      <Label htmlFor="address">{t('booking.address')} <span className="text-red-500">*</span> </Label>
                       <div className="relative">
                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                         <Textarea
                           id="address"
-                          placeholder="Enter your full address for prasad delivery"
+                          placeholder={t('booking.placeholders.address')}
                           className={`pl-10 min-h-[80px] ${errors.address ? "border-destructive" : ""}`}
                           value={formData.address}
                           onChange={(e) => handleChange("address", e.target.value)}
@@ -303,10 +305,10 @@ export default function BookingFormPage() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="city">City <span className="text-red-500">*</span> </Label>
+                        <Label htmlFor="city">{t('booking.city')} <span className="text-red-500">*</span> </Label>
                         <Input
                           id="city"
-                          placeholder="City"
+                          placeholder={t('booking.placeholders.city')}
                           value={formData.city}
                           onChange={(e) => handleChange("city", e.target.value)}
                           className={errors.city ? "border-destructive" : ""}
@@ -316,10 +318,10 @@ export default function BookingFormPage() {
                         )}
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="pincode">Pincode <span className="text-red-500">*</span> </Label>
+                        <Label htmlFor="pincode">{t('booking.pincode')} <span className="text-red-500">*</span> </Label>
                         <Input
                           id="pincode"
-                          placeholder="6-digit pincode"
+                          placeholder={t('booking.placeholders.pincode')}
                           value={formData.pincode}
                           onChange={(e) => handleChange("pincode", e.target.value)}
                           maxLength={6}
@@ -338,14 +340,14 @@ export default function BookingFormPage() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl">
                       <Calendar className="h-5 w-5 text-primary" />
-                      Pooja Details
+                      {t('booking.poojaDetails')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label>Select Pooja <span className="text-red-500">*</span> </Label>
+                        <Label>{t('booking.selectPooja')} <span className="text-red-500">*</span> </Label>
                         <Select
                           value={formData.poojaId}
                           onValueChange={(value) => handleChange("poojaId", value)}
@@ -355,7 +357,7 @@ export default function BookingFormPage() {
                             {!poojasLoaded ? (
                               <span className="text-muted-foreground">Loading poojas...</span>
                             ) : (
-                              <SelectValue placeholder="Choose a pooja" />
+                              <SelectValue placeholder={t('booking.placeholders.choosePooja')} />
                             )}
                           </SelectTrigger>
                           <SelectContent>
@@ -371,7 +373,7 @@ export default function BookingFormPage() {
                         )}
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="poojaDate">Preferred Date <span className="text-red-500">*</span> </Label>
+                        <Label htmlFor="poojaDate">{t('booking.preferredDate')} <span className="text-red-500">*</span> </Label>
                         <Input
                           id="poojaDate"
                           type="date"
@@ -386,157 +388,157 @@ export default function BookingFormPage() {
                         )}
                       </div>
                     </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="poojaMode">Preferred Pooja Mode <span className="text-red-500">*</span> </Label>
-                      <Select
-                        value={formData.poojaMode}
-                        onValueChange={(value) => handleChange("poojaMode", value)}
-                      >
-                        <SelectTrigger className={errors.poojaMode ? "border-destructive" : ""}>
-                          <SelectValue placeholder="Choose a pooja mode" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="online">Online</SelectItem>
-                          <SelectItem value="offline">Offline</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {errors.poojaMode && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="poojaMode">{t('booking.preferredMode')} <span className="text-red-500">*</span> </Label>
+                        <Select
+                          value={formData.poojaMode}
+                          onValueChange={(value) => handleChange("poojaMode", value)}
+                        >
+                          <SelectTrigger className={errors.poojaMode ? "border-destructive" : ""}>
+                            <SelectValue placeholder={t('booking.placeholders.chooseMode')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="online">{t('booking.onlineMode')}</SelectItem>
+                            <SelectItem value="offline">{t('booking.offlineMode')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {errors.poojaMode && (
                           <p className="text-xs text-destructive">{errors.poojaMode}</p>
                         )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="poojaTemple">Pooja Temple <span className="text-red-500">*</span></Label>
-                      <Select
-                        value={formData.poojaTemple}
-                        onValueChange={(value) => handleChange("poojaTemple", value)}
-                      >
-                        <SelectTrigger className={errors.poojaTemple ? "border-destructive" : ""}>
-                          <SelectValue placeholder="Choose a temple" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="someswar mahadev">Someswar Mahadev</SelectItem>                          
-                          <SelectItem value="someswar mahadev">Temple 2</SelectItem>                          
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  {formData.poojaMode === "online" && (
-                    <Alert>
-                      <AlertDescription>
-                        <ShieldAlert className="text-red-500 mb-2" />
-                        {" "}
-                        You've selected Online mode. The video of the pooja will be sent to you via WhatsApp or email. Your prasence is not required.
-                      </AlertDescription>
-                    </Alert>
-                  )}
-                  <div className="space-y-2">
-                    <Label htmlFor="specialRequirements">Special Requirements</Label>
-                    <div className="relative">
-                      <FileText className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Textarea
-                        id="specialRequirements"
-                        placeholder="Any special requests or instructions (optional)"
-                        className="pl-10 min-h-[80px]"
-                        value={formData.specialRequirements}
-                        onChange={(e) => handleChange("specialRequirements", e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* CAPTCHA */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-xl">Security Verification</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Captcha onVerify={setCaptchaVerified} />
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Order Summary */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-24">
-                <Card className="border-primary/20">
-                  <CardHeader className="bg-gradient-sacred text-primary-foreground rounded-t-xl">
-                    <CardTitle className="text-xl">Booking Summary</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-6 space-y-4">
-                    {selectedPooja ? (
-                      <>
-                        <div className="flex justify-center mb-4">
-                          <img
-                            src={selectedPooja.image || OhmImage}
-                            alt="Pray"
-                            className="h-16 w-16 flex-shrink-0 rounded-sm"
-                          />
-                        </div>
-                        <h3 className="font-serif font-semibold text-lg text-center">
-                          {selectedPooja.name}
-                        </h3>
-                        <p className="text-sm text-center text-temple-gold">
-                          {selectedPooja.nameHindi}
-                        </p>
-                        <div className="border-t pt-4 space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">Duration:</span>
-                            <span>{selectedPooja.duration}</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">Pooja Fee:</span>
-                            <span>₹{selectedPooja.price.toLocaleString()}</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">Prasad Delivery:</span>
-                            <span className="text-primary">Free</span>
-                          </div>
-                        </div>
-                        <div className="border-t pt-4">
-                          <div className="flex justify-between font-bold text-lg">
-                            <span>Total:</span>
-                            <span className="text-primary">
-                              ₹{selectedPooja.price.toLocaleString()}
-                            </span>
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <div className="flex justify-center mb-2">
-                          <img
-                            src={OhmImage}
-                            alt="Pray"
-                            className="h-16 w-16 flex-shrink-0 rounded-sm"
-                          />
-                        </div>
-                        <p>Please select a pooja to see summary</p>
                       </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="poojaTemple">{t('booking.poojaTemple')} <span className="text-red-500">*</span></Label>
+                        <Select
+                          value={formData.poojaTemple}
+                          onValueChange={(value) => handleChange("poojaTemple", value)}
+                        >
+                          <SelectTrigger className={errors.poojaTemple ? "border-destructive" : ""}>
+                            <SelectValue placeholder={t('booking.placeholders.chooseTemple')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="someswar mahadev">Someswar Mahadev</SelectItem>                          
+                            <SelectItem value="someswar mahadev">Temple 2</SelectItem>                          
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    {formData.poojaMode === "online" && (
+                      <Alert>
+                        <AlertDescription>
+                          <ShieldAlert className="text-red-500 mb-2" />
+                          {" "}
+                          {t('booking.onlineModeAlert')}
+                        </AlertDescription>
+                      </Alert>
                     )}
+                    <div className="space-y-2">
+                      <Label htmlFor="specialRequirements">{t('booking.specialRequirements')}</Label>
+                      <div className="relative">
+                        <FileText className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <Textarea
+                          id="specialRequirements"
+                          placeholder={t('booking.placeholders.specialRequests')}
+                          className="pl-10 min-h-[80px]"
+                          value={formData.specialRequirements}
+                          onChange={(e) => handleChange("specialRequirements", e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                    <Button
-                      type="submit"
-                      variant="sacred"
-                      size="lg"
-                      className="w-full mt-4"
-                      disabled={!captchaVerified || !selectedPooja || isLoading}
-                    >
-                      Proceed to Payment
-                    </Button>
-
-                    <p className="text-xs text-center text-muted-foreground mt-2">
-                      By proceeding, you agree to our terms and conditions
-                    </p>
+                {/* CAPTCHA */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">{t('booking.securityVerification')}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Captcha onVerify={setCaptchaVerified} />
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Order Summary */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-24">
+                  <Card className="border-primary/20">
+                    <CardHeader className="bg-gradient-sacred text-primary-foreground rounded-t-xl">
+                      <CardTitle className="text-xl">{t('booking.bookingSummary')}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-6 space-y-4">
+                      {selectedPooja ? (
+                        <>
+                          <div className="flex justify-center mb-4">
+                            <img
+                              src={selectedPooja.image || OhmImage}
+                              alt="Pray"
+                              className="h-16 w-16 flex-shrink-0 rounded-sm"
+                            />
+                          </div>
+                          <h3 className="font-serif font-semibold text-lg text-center">
+                            {selectedPooja.name}
+                          </h3>
+                          <p className="text-sm text-center text-temple-gold">
+                            {selectedPooja.nameHindi}
+                          </p>
+                          <div className="border-t pt-4 space-y-2">
+                            <div className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">{t('booking.duration')}:</span>
+                              <span>{selectedPooja.duration}</span>
+                            </div>
+                            <div className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">{t('booking.poojaFee')}:</span>
+                              <span>₹{selectedPooja.price.toLocaleString()}</span>
+                            </div>
+                            <div className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">{t('booking.prasadDelivery')}:</span>
+                              <span className="text-primary">Free</span>
+                            </div>
+                          </div>
+                          <div className="border-t pt-4">
+                            <div className="flex justify-between font-bold text-lg">
+                              <span>{t('booking.total')}:</span>
+                              <span className="text-primary">
+                                ₹{selectedPooja.price.toLocaleString()}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="text-center py-8 text-muted-foreground">
+                          <div className="flex justify-center mb-2">
+                            <img
+                              src={OhmImage}
+                              alt="Pray"
+                              className="h-16 w-16 flex-shrink-0 rounded-sm"
+                            />
+                          </div>
+                          <p>{t('booking.selectPooja')} to see summary</p>
+                        </div>
+                      )}
+
+                      <Button
+                        type="submit"
+                        variant="sacred"
+                        size="lg"
+                        className="w-full mt-4"
+                        disabled={!captchaVerified || !selectedPooja || isLoading}
+                      >
+                        {t('booking.proceedToPayment')}
+                      </Button>
+
+                      <p className="text-xs text-center text-muted-foreground mt-2">
+                        {t('booking.termsAgreement')}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
             </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
-      </div >
-    </div >
   );
 }

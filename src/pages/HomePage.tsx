@@ -6,33 +6,35 @@ import templeHero from "/images/temple-hero.jpg";
 import PraySvg from "/pray.svg";
 import { useEffect, useState } from "react";
 import { getAllPujas } from "@/utils/api";
-
-const features = [
-  {
-    icon: Shield,
-    title: "Authentic Rituals",
-    description: "Traditional Vedic ceremonies performed by experienced priests"
-  },
-  {
-    icon: Users,
-    title: "Expert Pandits",
-    description: "Led by Pandit Sailendra Puri with 25+ years of experience"
-  },
-  {
-    icon: Clock,
-    title: "Convenient Booking",
-    description: "Book online anytime and receive video of your pooja"
-  },
-  {
-    icon: Star,
-    title: "Divine Blessings",
-    description: "Receive prasad and blessings at your doorstep"
-  }
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HomePage() {
   const [featuredPoojas, setFeaturedPoojas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: Shield,
+      title: t('features.authentic.title'),
+      description: t('features.authentic.description')
+    },
+    {
+      icon: Users,
+      title: t('features.expert.title'),
+      description: t('features.expert.description')
+    },
+    {
+      icon: Clock,
+      title: t('features.convenient.title'),
+      description: t('features.convenient.description')
+    },
+    {
+      icon: Star,
+      title: t('features.divine.title'),
+      description: t('features.divine.description')
+    }
+  ];
 
   useEffect(() => {
     const fetchPoojas = async () => {
@@ -74,30 +76,29 @@ export default function HomePage() {
                 className="h-6 w-6 flex-shrink-0 rounded-sm"
               />
               <span className="text-sm font-medium text-temple-gold">
-                ॐ नमः शिवाय | Om Namah Shivaya
+                {t('hero.tagline')}
               </span>
             </div>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-primary-foreground leading-tight">
-              Someswar Mahadev
-              <span className="block text-temple-gold mt-2">Online Pooja Booking</span>
+              {t('hero.title')}
+              <span className="block text-temple-gold mt-2">{t('hero.subtitle')}</span>
             </h1>
 
             <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              Experience divine blessings from the sacred Someswar Mahadev Temple.
-              Book authentic Vedic poojas online and receive prasad at your doorstep.
+              {t('hero.description')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link to="/poojas">
                 <Button variant="sacred" size="xl" className="gap-2 w-full sm:w-auto">
-                  Explore Poojas
+                  {t('hero.explorePoojas')}
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/booking">
                 <Button variant="outline" size="xl" className="w-full sm:w-auto border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-                  Book Now
+                  {t('hero.bookNow')}
                 </Button>
               </Link>
             </div>
@@ -117,10 +118,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-              Why Choose Our Temple?
+              {t('features.title')}
             </h2>
             <p className="text-muted-foreground">
-              Trusted by thousands of devotees across India for authentic Vedic ceremonies
+              {t('features.subtitle')}
             </p>
           </div>
 
@@ -150,13 +151,13 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground">
-              How It Works
+              {t('howItWorks.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-8">
               {[
-                { step: "1", title: "Choose Pooja", desc: "Select the sacred ceremony that matches your needs" },
-                { step: "2", title: "Book & Pay", desc: "Fill in your details and make secure payment" },
-                { step: "3", title: "Receive Blessings", desc: "Watch the ceremony and receive blessings at your doorstep" },
+                { step: "1", title: t('howItWorks.steps.choose.title'), desc: t('howItWorks.steps.choose.description') },
+                { step: "2", title: t('howItWorks.steps.book.title'), desc: t('howItWorks.steps.book.description') },
+                { step: "3", title: t('howItWorks.steps.receive.title'), desc: t('howItWorks.steps.receive.description') },
               ].map((item) => (
                 <div key={item.step} className="text-center bg-card rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
                   <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-sacred flex items-center justify-center text-xl font-bold text-primary-foreground shadow-lg">
@@ -178,22 +179,22 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-2">
-                Popular Poojas
+                {t('popularPoojas.title')}
               </h2>
               <p className="text-muted-foreground">
-                Most sought-after sacred ceremonies for divine blessings
+                {t('popularPoojas.subtitle')}
               </p>
             </div>
             <Link to="/poojas">
               <Button variant="outline" className="gap-2">
-                View All Poojas
+                {t('popularPoojas.viewAll')}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>
           {isLoading ? (
             <div className="min-h-screen flex items-center justify-center">
-              <p className="text-xl">Loading Poojas...</p>
+              <p className="text-xl">{t('popularPoojas.loading')}</p>
             </div>
           ) : (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredPoojas.map((pooja, index) => (
@@ -221,15 +222,14 @@ export default function HomePage() {
               />
             </div>
             <h2 className="text-3xl md:text-4xl font-serif font-bold">
-              Ready to Receive Divine Blessings?
+              {t('cta.title')}
             </h2>
             <p className="text-lg opacity-90">
-              Book your pooja today and experience the sacred rituals from the comfort of your home.
-              Pandit Sailendra Puri Ji will personally perform your pooja with utmost devotion.
+              {t('cta.description')}
             </p>
             <Link to="/booking">
               <Button variant="gold" size="xl" className="gap-2 mt-4">
-                Book Your Pooja Now
+                {t('cta.bookNow')}
                 <ArrowRight className="h-5 w-5" />
               </Button>
             </Link>
