@@ -197,23 +197,23 @@ export default function BookingFormPage() {
   const maxDateStr = maxDate.toISOString().split("T")[0];
 
   return (
-    <div className="min-h-screen bg-background py-8 md:py-16">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-background py-6 sm:py-8 md:py-12 lg:py-16">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-3">
+          <div className="text-center mb-6 sm:mb-8 md:mb-10">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-foreground mb-2 sm:mb-3 px-2">
               {t('booking.title')}
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground px-4 sm:px-0">
               {t('booking.subtitle')}
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8">
               {/* Main Form */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className="xl:col-span-2 space-y-6">
                 {/* Personal Details */}
                 <Card>
                   <CardHeader>

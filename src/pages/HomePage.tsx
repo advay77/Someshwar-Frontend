@@ -70,7 +70,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen md:min-h-[85vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           {backgroundImages.map((image, index) => (
@@ -87,37 +87,37 @@ export default function HomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-temple-gold/20 backdrop-blur border border-temple-gold/30">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-temple-gold/20 backdrop-blur border border-temple-gold/30">
               <img
                 src={PraySvg}
                 alt="Pray"
-                className="h-6 w-6 flex-shrink-0 rounded-sm"
+                className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 rounded-sm"
               />
-              <span className="text-sm font-medium text-temple-gold">
+              <span className="text-xs sm:text-sm font-medium text-temple-gold">
                 {t('hero.tagline')}
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-primary-foreground leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold text-primary-foreground leading-tight px-2">
               {t('hero.title')}
-              <span className="block text-temple-gold mt-2">{t('hero.subtitle')}</span>
+              <span className="block text-temple-gold mt-1 sm:mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">{t('hero.subtitle')}</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto px-4 sm:px-0">
               {t('hero.description')}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2 sm:pt-4 px-4 sm:px-0">
               <Link to="/poojas">
-                <Button variant="sacred" size="xl" className="gap-2 w-full sm:w-auto">
+                <Button variant="sacred" size="lg" className="gap-2 w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3 px-4 sm:px-6">
                   {t('hero.explorePoojas')}
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </Link>
               <Link to="/booking">
-                <Button variant="outline" size="xl" className="w-full sm:w-auto border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground text-sm sm:text-base py-2 sm:py-3 px-4 sm:px-6">
                   {t('hero.bookNow')}
                 </Button>
               </Link>
@@ -126,39 +126,39 @@ export default function HomePage() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 rounded-full border-2 border-primary-foreground/30 flex items-start justify-center p-1">
-            <div className="w-1.5 h-3 bg-temple-gold rounded-full animate-pulse" />
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-5 h-8 sm:w-6 sm:h-10 rounded-full border-2 border-primary-foreground/30 flex items-start justify-center p-1">
+            <div className="w-1 h-2 sm:w-1.5 sm:h-3 bg-temple-gold rounded-full animate-pulse" />
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-secondary sacred-pattern">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary sacred-pattern">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-foreground mb-3 sm:mb-4">
               {t('features.title')}
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground px-4 sm:px-0">
               {t('features.subtitle')}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="p-6 bg-card rounded-xl border shadow-sacred text-center hover:shadow-glow transition-all duration-300 hover:-translate-y-1"
+                className="p-4 sm:p-6 bg-card rounded-xl border shadow-sacred text-center hover:shadow-glow transition-all duration-300 hover:-translate-y-1"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-sacred flex items-center justify-center">
-                  <feature.icon className="h-7 w-7 text-primary-foreground" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-sacred flex items-center justify-center">
+                  <feature.icon className="h-6 w-6 sm:h-7 sm:w-7 text-primary-foreground" />
                 </div>
-                <h3 className="font-serif font-semibold text-lg text-foreground mb-2">
+                <h3 className="font-serif font-semibold text-base sm:text-lg text-foreground mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -167,26 +167,26 @@ export default function HomePage() {
         </div>
       </section>
       {/* Info Section */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground">
+      <section className="py-10 sm:py-12 md:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-foreground">
               {t('howItWorks.title')}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-6 sm:mt-8">
               {[
                 { step: "1", title: t('howItWorks.steps.choose.title'), desc: t('howItWorks.steps.choose.description') },
                 { step: "2", title: t('howItWorks.steps.book.title'), desc: t('howItWorks.steps.book.description') },
                 { step: "3", title: t('howItWorks.steps.receive.title'), desc: t('howItWorks.steps.receive.description') },
               ].map((item) => (
-                <div key={item.step} className="text-center bg-card rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-sacred flex items-center justify-center text-xl font-bold text-primary-foreground shadow-lg">
+                <div key={item.step} className="text-center bg-card rounded-xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-sacred flex items-center justify-center text-lg sm:text-xl font-bold text-primary-foreground shadow-lg">
                     {item.step}
                   </div>
-                  <h3 className="font-serif font-semibold text-base md:text-lg text-foreground mb-2">
+                  <h3 className="font-serif font-semibold text-sm sm:text-base md:text-lg text-foreground mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed px-2 sm:px-0">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -194,29 +194,29 @@ export default function HomePage() {
         </div>
       </section>
       {/* Featured Poojas Section */}
-      <section className="py-20 bg-secondary sacred-pattern ">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-2">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary sacred-pattern">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 sm:mb-12">
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-foreground mb-2">
                 {t('popularPoojas.title')}
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 {t('popularPoojas.subtitle')}
               </p>
             </div>
             <Link to="/poojas">
-              <Button variant="outline" className="gap-2">
+              <Button variant="outline" className="gap-2 w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3 px-4 sm:px-6">
                 {t('popularPoojas.viewAll')}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>
           {isLoading ? (
-            <div className="min-h-screen flex items-center justify-center">
-              <p className="text-xl">{t('popularPoojas.loading')}</p>
+            <div className="min-h-[300px] sm:min-h-[400px] flex items-center justify-center">
+              <p className="text-base sm:text-lg">{t('popularPoojas.loading')}</p>
             </div>
-          ) : (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          ) : (<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {featuredPoojas.map((pooja, index) => (
               <div
                 key={pooja.id}
@@ -231,26 +231,26 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-temple text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="text-5xl flex items-center justify-center animate-float">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-temple text-primary-foreground">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
+            <div className="text-4xl sm:text-5xl flex items-center justify-center animate-float">
               <img
                 src={PraySvg}
                 alt="Pray"
-                className="h-16 w-16 flex-shrink-0 rounded-sm"
+                className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 flex-shrink-0 rounded-sm"
               />
             </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold px-4 sm:px-0">
               {t('cta.title')}
             </h2>
-            <p className="text-lg opacity-90">
+            <p className="text-base sm:text-lg opacity-90 px-4 sm:px-0 max-w-2xl mx-auto">
               {t('cta.description')}
             </p>
             <Link to="/booking">
-              <Button variant="gold" size="xl" className="gap-2 mt-4">
+              <Button variant="gold" size="lg" className="gap-2 mt-2 sm:mt-4 text-sm sm:text-base py-2 sm:py-3 px-6 sm:px-8">
                 {t('cta.bookNow')}
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </Link>
           </div>
