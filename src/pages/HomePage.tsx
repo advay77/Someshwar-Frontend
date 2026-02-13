@@ -3,6 +3,9 @@ import { ArrowRight, Star, Users, Clock, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PoojaCard } from "@/components/PoojaCard";
 import templeHero from "/images/temple-hero.jpg";
+import image1 from "/images/image.png";
+import image2 from "/images/image1.png";
+import image3 from "/images/image2.png";
 import PraySvg from "/pray.svg";
 import { useEffect, useState } from "react";
 import { getAllPujas } from "@/utils/api";
@@ -11,7 +14,10 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function HomePage() {
   const [featuredPoojas, setFeaturedPoojas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { t } = useLanguage();
+
+  const backgroundImages = [image1, image2, image3];
 
   const features = [
     {
@@ -52,17 +58,31 @@ export default function HomePage() {
     fetchPoojas();
   }, []);
 
+  // Background image switching effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img
-            src={templeHero}
-            alt="Someswar Mahadev Temple at sunset"
-            className="w-full h-full object-cover"
-          />
+          {backgroundImages.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Someswar Mahadev Temple background ${index + 1}`}
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
           <div className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/50 to-foreground/80" />
         </div>
 
